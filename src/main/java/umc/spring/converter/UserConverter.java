@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import umc.spring.domain.User;
 import umc.spring.domain.enums.Gender;
-import umc.spring.web.dto.UserRequestDTO;
-import umc.spring.web.dto.UserResponseDTO;
+import umc.spring.web.dto.user.UserRequestDTO;
+import umc.spring.web.dto.user.UserResponseDTO;
 
 public class UserConverter {
 

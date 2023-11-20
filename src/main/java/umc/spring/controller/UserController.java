@@ -2,7 +2,6 @@ package umc.spring.controller;
 
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,8 +10,8 @@ import umc.spring.apiPayload.ApiResponse;
 import umc.spring.converter.UserConverter;
 import umc.spring.domain.User;
 import umc.spring.service.UserService.UserCommandService;
-import umc.spring.web.dto.UserRequestDTO;
-import umc.spring.web.dto.UserResponseDTO;
+import umc.spring.web.dto.user.UserRequestDTO;
+import umc.spring.web.dto.user.UserResponseDTO;
 
 @RestController
 @RequiredArgsConstructor

@@ -3,8 +3,8 @@ package umc.spring.converter;
 import java.time.LocalDateTime;
 import umc.spring.domain.Review;
 import umc.spring.domain.Store;
-import umc.spring.web.dto.ReviewRequestDTO;
-import umc.spring.web.dto.ReviewResponseDTO;
+import umc.spring.web.dto.review.ReviewRequestDTO;
+import umc.spring.web.dto.review.ReviewResponseDTO;
 
 public class ReviewConverter {
 

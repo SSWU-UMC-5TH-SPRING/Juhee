@@ -14,7 +14,7 @@ import umc.spring.domain.mapping.UserPrefer;
 import umc.spring.handler.FoodCategoryHandler;
 import umc.spring.repository.FoodCategoryRepository;
 import umc.spring.repository.UserRepository;
-import umc.spring.web.dto.UserRequestDTO;
+import umc.spring.web.dto.user.UserRequestDTO;
 
 @Service
 @RequiredArgsConstructor
