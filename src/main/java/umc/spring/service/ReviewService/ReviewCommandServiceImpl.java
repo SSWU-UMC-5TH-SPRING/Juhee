@@ -10,6 +10,7 @@ import umc.spring.domain.Store;
 import umc.spring.handler.StoreHandler;
 import umc.spring.repository.ReviewRepository;
 import umc.spring.repository.StoreRepository;
+import umc.spring.validation.validator.StoreExistValidator;
 import umc.spring.web.dto.review.ReviewRequestDTO;
 
 @Service
@@ -18,15 +19,17 @@ import umc.spring.web.dto.review.ReviewRequestDTO;
 public class ReviewCommandServiceImpl implements ReviewCommandService {
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
+    private final StoreExistValidator storeExistValidator;
 
     @Override
     @Transactional
     public Review addReview(Long storeIdx, ReviewRequestDTO.AddReviewDto request) {
-        Store store = storeRepository.findById(storeIdx)
-                .orElseThrow(() -> new StoreHandler(
-                        ErrorStatus.STORE_NOT_FOUND));
-        Review newReview = ReviewConverter.toReview(store, request);
+            storeExistValidator.isValid(storeIdx, null);
+            Store store = storeRepository.findById(storeIdx)
+                    .orElseThrow(() -> new StoreHandler(
+                            ErrorStatus.STORE_NOT_FOUND));
+            Review newReview = ReviewConverter.toReview(store, request);
 
-        return reviewRepository.save(newReview);
+            return reviewRepository.save(newReview);
     }
 }
