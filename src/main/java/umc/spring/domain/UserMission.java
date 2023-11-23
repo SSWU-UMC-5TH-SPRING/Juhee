@@ -38,4 +38,13 @@ public class UserMission extends BaseEntity {
     @JoinColumn(name = "mission_idx")
     private Mission mission;
 
+    public void setUser(User user) {
+        if (this.user != null)
+            user.getUserMissionList().remove(this);
+        this.user = user;
+        user.getUserMissionList().add(this);
+    }
+    public void setStatus(UserMissionStatus newStatus) {
+        this.status = newStatus;
+    }
 }

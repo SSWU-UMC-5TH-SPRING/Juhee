@@ -2,6 +2,7 @@ package umc.spring.controller;
 
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,11 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 import umc.spring.apiPayload.ApiResponse;
 import umc.spring.converter.MissionConverter;
 import umc.spring.domain.Mission;
+import umc.spring.domain.UserMission;
 import umc.spring.service.MissionService.MissionCommandService;
 import umc.spring.validation.annotation.ExistStores;
+import umc.spring.validation.annotation.ExistUser;
+import umc.spring.validation.annotation.StatusMission;
 import umc.spring.web.dto.mission.MissionRequestDTO;
 import umc.spring.web.dto.mission.MissionResponseDTO;
+import umc.spring.web.dto.mission.userMission.UserMissionResponseDTO;
 
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/missions")
@@ -25,5 +31,11 @@ public class MissionController {
     public ApiResponse<MissionResponseDTO.AddMissionResultDTO> add(@RequestBody @Valid MissionRequestDTO.AddMissionDto request, @ExistStores @PathVariable(name = "storeIdx") Long storeIdx) {
         Mission mission = missionCommandService.addMission(storeIdx, request);
         return ApiResponse.onSuccess(MissionConverter.toAddResultDTO(mission));
+    }
+
+    @PostMapping("/challenge/{missionIdx}/{userIdx}")
+    public ApiResponse<UserMissionResponseDTO.ChallengeMissionResultDTO> challengeMission(@StatusMission @PathVariable(name = "missionIdx") Long missionIdx, @ExistUser @PathVariable(name = "userIdx") Long userIdx) {
+        UserMission userMission = missionCommandService.challengeMission(missionIdx, userIdx);
+        return ApiResponse.onSuccess(MissionConverter.toChallengeResultDTO(userMission));
     }
 }
