@@ -1,6 +1,9 @@
 package umc.spring.converter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 import umc.spring.domain.Mission;
 import umc.spring.domain.Store;
 import umc.spring.domain.User;
@@ -40,5 +43,18 @@ public class MissionConverter {
                 .user(user)
                 .status(UserMissionStatus.INPROGRESS)
                 .build();
+    }
+
+    public static List<MissionResponseDTO.MissionListResultDTO> getMissionResultListDTO(Page<Mission> missionList) {
+        return missionList.stream()
+                .map(mission -> MissionResponseDTO.MissionListResultDTO.builder()
+                        .missionIdx(mission.getMissionIdx())
+                        .rewardPoint(mission.getRewardPoints())
+                        .price(mission.getPrice())
+                        .deadline(mission.getDeadline())
+                        .storeIdx(mission.getStore().getStoreIdx())
+                        .name(mission.getStore().getName())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

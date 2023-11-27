@@ -36,6 +36,7 @@ public class Store extends BaseEntity {
     private StoreCategory category;
 
     private String location;
+    private String name;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();

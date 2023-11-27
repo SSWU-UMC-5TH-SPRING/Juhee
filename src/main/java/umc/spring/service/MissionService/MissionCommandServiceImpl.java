@@ -13,6 +13,7 @@ import umc.spring.repository.MissionRepository;
 import umc.spring.repository.StoreRepository;
 import umc.spring.repository.UserMissionRepository;
 import umc.spring.repository.UserRepository;
+import umc.spring.validation.validator.StoreExistValidator;
 import umc.spring.web.dto.mission.MissionRequestDTO;
 
 @Service
