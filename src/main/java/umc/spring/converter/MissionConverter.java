@@ -57,4 +57,16 @@ public class MissionConverter {
                         .build())
                 .collect(Collectors.toList());
     }
+
+    public static List<MissionResponseDTO.InisProgressMissionDTO> getInisProgressMissionListDTO(Page<UserMission> missionList) {
+        return missionList.stream()
+                .map(mission -> MissionResponseDTO.InisProgressMissionDTO.builder()
+                        .missionIdx(mission.getUserMissionIdx())
+                        .storeIdx(mission.getMission().getStore().getStoreIdx())
+                        .name(mission.getMission().getStore().getName())
+                        .price(mission.getMission().getPrice())
+                        .status(mission.getStatus())
+                        .build())
+                .collect(Collectors.toList());
+    }
 }

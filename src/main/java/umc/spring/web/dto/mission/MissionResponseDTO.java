@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import umc.spring.domain.enums.UserMissionStatus;
 
 public class MissionResponseDTO {
     @Builder
@@ -28,5 +29,17 @@ public class MissionResponseDTO {
         LocalDate deadline;
         Integer price;
         Integer rewardPoint;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class InisProgressMissionDTO{
+        Long missionIdx;
+        Long storeIdx;
+        String name; // 가게 이름
+        Integer price;
+        UserMissionStatus status;
     }
 }

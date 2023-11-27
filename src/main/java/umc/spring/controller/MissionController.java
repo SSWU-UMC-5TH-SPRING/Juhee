@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import umc.spring.apiPayload.ApiResponse;
 import umc.spring.converter.MissionConverter;
 import umc.spring.domain.Mission;
-import umc.spring.domain.Store;
 import umc.spring.domain.UserMission;
 import umc.spring.service.MissionService.MissionCommandService;
 import umc.spring.service.MissionService.MissionQueryService;
 import umc.spring.validation.annotation.ExistStores;
 import umc.spring.validation.annotation.ExistUser;
+import umc.spring.validation.annotation.PageLessNull;
 import umc.spring.validation.annotation.StatusMission;
 import umc.spring.web.dto.mission.MissionRequestDTO;
 import umc.spring.web.dto.mission.MissionResponseDTO;
@@ -60,8 +60,23 @@ public class MissionController {
             @Parameter(name = "storeIdx", description = "가게의 아이디 path variable 입니다!"),
             @Parameter(name = "page", description = "페이지 번호, 0번이 1 페이지 입니다."),
     })
-    public ApiResponse<List<MissionResponseDTO.MissionListResultDTO>> getMissionList(@ExistStores @PathVariable(name = "storeIdx") Long storeIdx, @RequestParam(name = "page") Integer page) {
+    public ApiResponse<List<MissionResponseDTO.MissionListResultDTO>> getMissionList(@ExistStores @PathVariable(name = "storeIdx") Long storeIdx, @PageLessNull @RequestParam(name = "page") Integer page) {
         Page<Mission> mission = missionQueryService.getMissionList(storeIdx, page);
         return ApiResponse.onSuccess(MissionConverter.getMissionResultListDTO(mission));
+    }
+
+    @GetMapping("/mymission/{userIdx}")
+    @Operation(summary = "내가 진행중인 미션 목록 조회 API", description = "내가 진행중인 미션 목록을 조회하는 API 이며, 페이징을 포함합니다. query String으로 page 번호를 주세요.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "USER4001", description = "해당하는 유저가 없습니다.")
+    })
+    @Parameters({
+            @Parameter(name = "userIdx", description = "유저의 아이디 path variable 입니다."),
+            @Parameter(name = "page", description = "페이지 번호, 0번이 1 페이지 입니다."),
+    })
+    public ApiResponse<List<MissionResponseDTO.InisProgressMissionDTO>> getInisProgressMissionList(@ExistUser @PathVariable(name = "userIdx") Long userIdx, @PageLessNull @RequestParam(name = "page") Integer page) {
+        Page<UserMission> mission = missionQueryService.getInisProgressMissionList(userIdx, page);
+        return ApiResponse.onSuccess(MissionConverter.getInisProgressMissionListDTO(mission));
     }
 }

@@ -33,7 +33,11 @@ public enum ErrorStatus implements BaseErrorCode {
     INPROGRESS_MISSION(HttpStatus.MULTI_STATUS, "MISSION4001", "이미 진행중인 미션입니다."),
 
     //region
-    REGION_NOT_FOUND(HttpStatus.NOT_FOUND, "REGION4001", "해당하는 지역이 없습니다");
+    REGION_NOT_FOUND(HttpStatus.NOT_FOUND, "REGION4001", "해당하는 지역이 없습니다"),
+
+    // page
+    PAGE_LESS_NULL(HttpStatus.BAD_REQUEST, "PAGE4001", "Page는 0부터 입니다")
+    ;
 
 
     private final HttpStatus httpStatus;
