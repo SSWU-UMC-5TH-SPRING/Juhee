@@ -13,7 +13,6 @@ import umc.spring.repository.MissionRepository;
 import umc.spring.repository.StoreRepository;
 import umc.spring.repository.UserMissionRepository;
 import umc.spring.repository.UserRepository;
-import umc.spring.validation.validator.StoreExistValidator;
 import umc.spring.web.dto.mission.MissionRequestDTO;
 
 @Service
@@ -48,6 +47,14 @@ public class MissionCommandServiceImpl implements MissionCommandService {
             MissionConverter.toUserMission(mission, user);
             userMission.setStatus(UserMissionStatus.INPROGRESS);
         }
+        return userMission;
+    }
+
+    @Override
+    @Transactional
+    public UserMission changeUserMissionStatus(Long userMissionIdx) {
+        UserMission userMission = userMissionRepository.getReferenceById(userMissionIdx);
+        userMission.setStatus(UserMissionStatus.COMPLETED);
         return userMission;
     }
 }

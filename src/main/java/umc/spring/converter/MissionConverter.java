@@ -69,4 +69,11 @@ public class MissionConverter {
                         .build())
                 .collect(Collectors.toList());
     }
+
+    public static UserMissionResponseDTO.UserMissionResultDTO changeUserMission(UserMission userMission) {
+        return UserMissionResponseDTO.UserMissionResultDTO.builder()
+                .userMissionIdx(userMission.getUserMissionIdx())
+                .status(userMission.getStatus())
+                .build();
+    }
 }

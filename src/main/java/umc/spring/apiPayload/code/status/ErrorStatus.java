@@ -31,6 +31,7 @@ public enum ErrorStatus implements BaseErrorCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER4001", "해당하는 유저가 없습니다."),
     // mission
     INPROGRESS_MISSION(HttpStatus.MULTI_STATUS, "MISSION4001", "이미 진행중인 미션입니다."),
+    MISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "MISSION4002", "해당하는 미션이 없습니다"),
 
     //region
     REGION_NOT_FOUND(HttpStatus.NOT_FOUND, "REGION4001", "해당하는 지역이 없습니다"),

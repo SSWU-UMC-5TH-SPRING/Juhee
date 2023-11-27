@@ -24,6 +24,7 @@ import umc.spring.service.MissionService.MissionCommandService;
 import umc.spring.service.MissionService.MissionQueryService;
 import umc.spring.validation.annotation.ExistStores;
 import umc.spring.validation.annotation.ExistUser;
+import umc.spring.validation.annotation.ExistUserMission;
 import umc.spring.validation.annotation.PageLessNull;
 import umc.spring.validation.annotation.StatusMission;
 import umc.spring.web.dto.mission.MissionRequestDTO;
@@ -78,5 +79,19 @@ public class MissionController {
     public ApiResponse<List<MissionResponseDTO.InisProgressMissionDTO>> getInisProgressMissionList(@ExistUser @PathVariable(name = "userIdx") Long userIdx, @PageLessNull @RequestParam(name = "page") Integer page) {
         Page<UserMission> mission = missionQueryService.getInisProgressMissionList(userIdx, page);
         return ApiResponse.onSuccess(MissionConverter.getInisProgressMissionListDTO(mission));
+    }
+
+    @PostMapping("/success/{userMissionIdx}")
+    @Operation(summary = "진행 중인 미션 진행 완료로 바꾸기 API", description = "진행 중인 미션의 상태를 성공으로 변경하는 API입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MISSION4002", description = "해당하는 미션이 없습니다.")
+    })
+    @Parameters({
+            @Parameter(name = "userMissionIdx", description = "해당 미션의 아이디 path variable 입니다"),
+    })
+    public ApiResponse<UserMissionResponseDTO.UserMissionResultDTO> changeStatus(@ExistUserMission @PathVariable(name = "userMissionIdx") Long userMissionIdx) {
+        UserMission userMission = missionCommandService.changeUserMissionStatus(userMissionIdx);
+        return ApiResponse.onSuccess(MissionConverter.changeUserMission(userMission));
     }
 }

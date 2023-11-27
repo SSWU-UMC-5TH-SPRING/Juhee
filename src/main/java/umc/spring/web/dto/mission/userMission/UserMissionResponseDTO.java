@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import umc.spring.domain.enums.UserMissionStatus;
 
 public class UserMissionResponseDTO {
     @Builder
@@ -14,5 +15,14 @@ public class UserMissionResponseDTO {
     public static class ChallengeMissionResultDTO {
         Long userMissionIdx;
         LocalDateTime createdAt;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserMissionResultDTO{
+        Long userMissionIdx;
+        UserMissionStatus status;
     }
 }
