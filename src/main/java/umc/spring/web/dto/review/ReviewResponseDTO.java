@@ -42,4 +42,35 @@ public class ReviewResponseDTO {
         String body;
         LocalDate createdAt;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyReviewPreViewListDTO {
+        Long storeName;
+        Integer listSize;
+        List<MyReviewPreviewDTO> reviewList;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyReviewPreviewDTO{
+        String nickName;
+        String content;
+        Integer rating;
+        String ownerComment;
+        LocalDateTime ownerCommentDate;
+        List<ReviewImgDTO> imgList;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ReviewImgDTO{
+        String ImgUrl;
+    }
 }
