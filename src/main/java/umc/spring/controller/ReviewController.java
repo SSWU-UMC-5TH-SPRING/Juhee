@@ -25,6 +25,7 @@ import umc.spring.service.ReviewService.ReviewCommandService;
 import umc.spring.service.ReviewService.ReviewQueryService;
 import umc.spring.service.StoreService.StoreQueryService;
 import umc.spring.validation.annotation.ExistStores;
+import umc.spring.validation.annotation.ExistUser;
 import umc.spring.web.dto.review.ReviewRequestDTO;
 import umc.spring.web.dto.review.ReviewResponseDTO;
 
@@ -61,7 +62,19 @@ public class ReviewController {
     }
 
     @GetMapping("/{userIdx}/{storeIdx}")
-    public ApiResponse<ReviewResponseDTO.MyReviewPreViewListDTO> getMyReviewList(@PathVariable Long userIdx, @PathVariable Long storeIdx, @RequestParam(name = "page") Integer page) {
+    @Operation(summary = "내가 작성한 리뷰 목록 조회 API", description = "내가 작성한 리뷰들의 목록을 조회하는 API이며, 페이징을 포함합니다. query String 으로 page 번호를 주세요")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "USER4001", description = "해당하는 유저가 없습니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "STORE4001", description = "해당하는 가게가 없습니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "PAGE4001", description = "page는 0부터 입니다"),
+    })
+    @Parameters({
+            @Parameter(name = "userIdx", description = "유저의 아이디, path variable 입니다"),
+            @Parameter(name = "storeIdx", description = "가게의 아이디, path variable 입니다"),
+            @Parameter(name = "page", description = "페이지 번호, 0번이 1 페이지 입니다."),
+    })
+    public ApiResponse<ReviewResponseDTO.MyReviewPreViewListDTO> getMyReviewList(@ExistUser @PathVariable Long userIdx, @ExistStores @PathVariable Long storeIdx, @RequestParam(name = "page") Integer page) {
         Optional<Store> store = storeQueryService.findStore(storeIdx);
         Page<Review> review = reviewCommandService.getMyReviewList(userIdx, store, page);
         return ApiResponse.onSuccess(ReviewConverter.myReviewPreViewListDTO(review, store));
