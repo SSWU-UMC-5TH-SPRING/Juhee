@@ -26,6 +26,7 @@ import umc.spring.service.ReviewService.ReviewQueryService;
 import umc.spring.service.StoreService.StoreQueryService;
 import umc.spring.validation.annotation.ExistStores;
 import umc.spring.validation.annotation.ExistUser;
+import umc.spring.validation.annotation.PageLessNull;
 import umc.spring.web.dto.review.ReviewRequestDTO;
 import umc.spring.web.dto.review.ReviewResponseDTO;
 
@@ -56,7 +57,7 @@ public class ReviewController {
             @Parameter(name = "storeIdx", description = "가게의 아이디, path variable 입니다!"),
             @Parameter(name = "page", description = "페이지 번호, 0번이 1 페이지 입니다."),
     })
-    public ApiResponse<ReviewResponseDTO.ReviewPreViewListDTO> getReviewList(@ExistStores @PathVariable(name = "storeIdx") Long storeIdx, @RequestParam(name = "page") Integer page) {
+    public ApiResponse<ReviewResponseDTO.ReviewPreViewListDTO> getReviewList(@ExistStores @PathVariable(name = "storeIdx") Long storeIdx, @PageLessNull @RequestParam(name = "page") Integer page) {
         reviewQueryService.getReviewList(storeIdx, page);
         return null;
     }
@@ -74,7 +75,7 @@ public class ReviewController {
             @Parameter(name = "storeIdx", description = "가게의 아이디, path variable 입니다"),
             @Parameter(name = "page", description = "페이지 번호, 0번이 1 페이지 입니다."),
     })
-    public ApiResponse<ReviewResponseDTO.MyReviewPreViewListDTO> getMyReviewList(@ExistUser @PathVariable Long userIdx, @ExistStores @PathVariable Long storeIdx, @RequestParam(name = "page") Integer page) {
+    public ApiResponse<ReviewResponseDTO.MyReviewPreViewListDTO> getMyReviewList(@ExistUser @PathVariable Long userIdx, @ExistStores @PathVariable Long storeIdx, @PageLessNull @RequestParam(name = "page") Integer page) {
         Optional<Store> store = storeQueryService.findStore(storeIdx);
         Page<Review> review = reviewCommandService.getMyReviewList(userIdx, store, page);
         return ApiResponse.onSuccess(ReviewConverter.myReviewPreViewListDTO(review, store));

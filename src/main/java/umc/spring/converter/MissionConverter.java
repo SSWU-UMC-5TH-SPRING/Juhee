@@ -76,4 +76,11 @@ public class MissionConverter {
                 .status(userMission.getStatus())
                 .build();
     }
+
+    public static UserMission toUserMissionStatus(UserMission userMission) {
+        return UserMission.builder()
+                .userMissionIdx(userMission.getUserMissionIdx())
+                .status(UserMissionStatus.COMPLETED)
+                .build();
+    }
 }

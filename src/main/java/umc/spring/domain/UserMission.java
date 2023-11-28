@@ -44,7 +44,4 @@ public class UserMission extends BaseEntity {
         this.user = user;
         user.getUserMissionList().add(this);
     }
-    public void setStatus(UserMissionStatus newStatus) {
-        this.status = newStatus;
-    }
 }

@@ -40,21 +40,16 @@ public class MissionCommandServiceImpl implements MissionCommandService {
     public UserMission challengeMission(Long missionIdx, Long userIdx) {
         Mission mission = missionRepository.getReferenceById(missionIdx);
         User user = userRepository.getReferenceById(userIdx);
+        UserMission newMission = MissionConverter.toUserMission(mission, user);
 
-        UserMission userMission = userMissionRepository.findByMissionAndUser(mission, user);
-
-        if (userMission != null) {
-            MissionConverter.toUserMission(mission, user);
-            userMission.setStatus(UserMissionStatus.INPROGRESS);
-        }
-        return userMission;
+        return userMissionRepository.save(newMission);
     }
 
     @Override
     @Transactional
     public UserMission changeUserMissionStatus(Long userMissionIdx) {
         UserMission userMission = userMissionRepository.getReferenceById(userMissionIdx);
-        userMission.setStatus(UserMissionStatus.COMPLETED);
-        return userMission;
+        UserMission updatedUserMission = MissionConverter.toUserMissionStatus(userMission);
+        return userMissionRepository.save(updatedUserMission);
     }
 }

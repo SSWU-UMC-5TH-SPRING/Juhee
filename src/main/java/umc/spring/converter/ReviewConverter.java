@@ -78,7 +78,7 @@ public class ReviewConverter {
                 .content(review.getContent())
                 .rating(review.getRating())
                 .ownerComment(review.getReplies().getContent())
-                .ownerCommentDate(review.getReplies().getCreatedAt())  // null 체크 추가
+                .ownerCommentDate(review.getReplies().getCreatedAt())
                 .imgList(myReviewImgList)
                 .build();
     }
