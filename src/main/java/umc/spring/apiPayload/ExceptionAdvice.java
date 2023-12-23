@@ -34,6 +34,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
     }
 
     @Override
+    //@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
@@ -45,8 +46,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
                     String errorMessage = Optional.ofNullable(fieldError.getDefaultMessage()).orElse("");
                     errors.merge(fieldName, errorMessage, (existingErrorMessage, newErrorMessage) -> existingErrorMessage + ", " + newErrorMessage);
                 });
-
-        return handleExceptionInternalArgs(e,HttpHeaders.EMPTY,ErrorStatus.valueOf("_BAD_REQUEST"),request,errors);
+        return ResponseEntity.badRequest().body(errors);
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler

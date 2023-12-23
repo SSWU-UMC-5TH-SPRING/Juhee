@@ -40,7 +40,7 @@ public class MissionController {
     private final MissionQueryService missionQueryService;
 
     @PostMapping("/add/{storeIdx}")
-    public ApiResponse<MissionResponseDTO.AddMissionResultDTO> add(@RequestBody @Valid MissionRequestDTO.AddMissionDto request, @ExistStores @PathVariable(name = "storeIdx") Long storeIdx) {
+    public ApiResponse<MissionResponseDTO.AddMissionResultDTO> add(@RequestBody @Valid MissionRequestDTO.AddMissionDto request, @Valid @ExistStores @PathVariable(name = "storeIdx") Long storeIdx) {
         Mission mission = missionCommandService.addMission(storeIdx, request);
         return ApiResponse.onSuccess(MissionConverter.toAddResultDTO(mission));
     }
