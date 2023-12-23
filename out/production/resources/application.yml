@@ -17,8 +17,13 @@ spring:
         hbm2ddl:
           auto: update
         default_batch_fetch_size: 1000
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 200MB
+      max-request-size: 300MB
 server:
-  port: 8082
+  port: 8080
 logging:
   level:
     org.springframework.data: DEBUG

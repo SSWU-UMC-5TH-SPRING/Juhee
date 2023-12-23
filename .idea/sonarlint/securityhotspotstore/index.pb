@@ -136,8 +136,6 @@ v
 Fsrc/main/java/umc/spring/validation/validator/StoreExistValidator.java,b/c/bccaaa989c9bec5b151d00a2a42f8d4d0cefa591
 i
 9src/main/java/umc/spring/apiPayload/GeneralException.java,8/a/8a093180e03e9ff5330157e7e5b63b803e468e5c
-^
-.src/main/java/umc/spring/StudyApplication.java,1/7/175bc2667a898861e599dbea308103be0736f496
 j
 :src/main/java/umc/spring/controller/MissionController.java,a/8/a876591a1198ea1b264c52be01c0b035af09c570
 h
