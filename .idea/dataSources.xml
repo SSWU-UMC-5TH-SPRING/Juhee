@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:mysql://tempdb.clzby4qsanjs.ap-northeast-2.rds.amazonaws.com:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="@mydb.clz02g0uqvzz.ap-northeast-2.rds.amazonaws.com" uuid="2ec3747b-93ad-4e27-a5e3-31d1d2c70d69">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://mydb.clz02g0uqvzz.ap-northeast-2.rds.amazonaws.com:3306</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
